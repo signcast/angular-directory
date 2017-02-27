@@ -1,0 +1,58 @@
+navbar
+.container
+	h3 Residents
+	.row
+		.col-md-3.col-md-push-3
+			a.btn.btn-default(href="/admin/residents/create") Create
+		.col-md-3.col-md-pull-3
+			.form-group
+				input.form-control(type="text", placeholder="Search", ng-model="query", ng-change="search()")
+		.col-md-6.text-right
+			ul.pagination.pagination-sm
+				li(ng-class='{disabled: currentPage == 0}')
+					a(href='', ng-click='prevPage()') &laquo; Prev
+				li(ng-repeat='n in range(pagedItems.length)', ng-class='{active: n == currentPage}', ng-click='setPage()')
+					a(href='', ng-bind='n + 1') 1
+				li(ng-class='{disabled: currentPage == pagedItems.length - 1}')
+					a(href='', ng-click='nextPage()') Next &raquo;
+	table.table.table-hover
+		thead
+			tr
+				th(ng-if="config.showImages") Picture
+				th.lastName 
+					| Lastname
+					= ' '
+					a(ng-click="sort_by('lastName')")
+						i.fa.fa-sort
+				th.firstName
+					| Firstname
+					= ' '
+					a(ng-click="sort_by('firstName')")
+						i.fa.fa-sort
+				th Wing
+				th Room
+				th Actions
+		tbody
+			tr(ng-repeat="resident in pagedItems[currentPage] | orderBy:sortingOrder:reverse")
+				td.no-stretch(ng-if="config.showImages") 
+					img(ng-src="assets/images/{{resident.picture}}", width="150", ng-if="resident.picture")
+				td {{resident.lastName}}
+				td {{resident.firstName}}
+				td {{resident.wing}}
+				td {{resident.room}}
+				td.no-stretch
+					button.btn.btn-default(ng-click="edit(resident._id)")
+						i.fa.fa-edit
+					= ' '
+					button.btn.btn-danger(ng-click="delete(resident._id)")
+						i.fa.fa-trash-o
+
+	.clearfix
+		ul.pagination.pagination-sm.pull-right
+			li(ng-class='{disabled: currentPage == 0}')
+				a(href='', ng-click='prevPage()') &laquo; Prev
+			li(ng-repeat='n in range(pagedItems.length)', ng-class='{active: n == currentPage}', ng-click='setPage()')
+				a(href='', ng-bind='n + 1') 1
+			li(ng-class='{disabled: currentPage == pagedItems.length - 1}')
+				a(href='', ng-click='nextPage()') Next &raquo;
+

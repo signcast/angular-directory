@@ -1,0 +1,16 @@
+.modal-header
+	button.close(type='button', ng-click='$dismiss()') &times;
+	h4.modal-title Delete Resident
+
+.modal-body
+	p.text-danger
+		| Do you really want to delete the entry of:
+
+	div
+		strong {{resident.firstName}} {{resident.lastName}}
+	div Wing: {{resident.wing}}
+	div Room: {{resident.room}}
+
+.modal-footer
+	button.btn.btn-default(type='button', ng-click='$dismiss()') No
+	button.btn.btn-primary(type='button', ng-click="delete()") Yes!

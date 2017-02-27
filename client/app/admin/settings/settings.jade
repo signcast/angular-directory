@@ -1,0 +1,40 @@
+navbar
+.container
+	h3 Settings
+
+	.row
+		.col-md-6
+			.panel.panel-danger
+				.panel-heading Change Password
+				.panel-body
+					.alert.alert-success(ng-show="passwordMessage") {{passwordMessage}}
+					.alert.alert-danger(ng-show="passwordHasError") Something went wrong!
+					
+					form.form(name='formPassword', ng-submit='changePassword(formPassword)', novalidate='')
+						.form-group
+							label Current Password
+							input.form-control(type="password" ng-model="oldPassword")
+						.form-group(ng-class='{ "has-error": (formPassword.newPassword.$error.required || formPassword.newPassword.$invalid) && passwordSubmitted }')
+							label New Password
+							input.form-control(type="password" name="newPassword" ng-model="newPassword", required='')
+						.form-group(ng-class='{ "has-error": (formPassword.newPasswordConfirm.$error.required || formPassword.newPasswordConfirm.$invalid) && passwordSubmitted}')
+							label Confirm New Password
+							input.form-control(type="password" name="newPasswordConfirm" ng-model="newPasswordConfirm", same-as='newPassword', required='')
+
+						button.btn.btn-danger(type="submit") Change Password
+		.col-md-6
+			.panel.panel-warning
+				.panel-heading Customize
+				.panel-body
+					.alert.alert-success(ng-show="customizeMessage") {{customizeMessage}}
+					.alert.alert-danger(ng-show="customizeHasError") Something went wrong!
+
+					form.form(name='formCustomize', ng-submit='changeSettings(formCustomize)', novalidate='')
+						.form-group
+							label Show Images
+							div
+								input(type="checkbox" ng-model="configs.showImages")
+								= ' '
+								| Show images and enable image upload.
+
+						button.btn.btn-warning(type="submit") Change Settings

@@ -1,0 +1,22 @@
+.search-form-wrap
+	.container
+		input.form-control.input-lg(type="text", placeholder="Please Enter Residents name", ng-model='searchResident', ng-change="updateGrid()", ng-virtual-keyboard="{kt: 'US International', relative: false}")
+.residents-list.text-center
+	carousel(interval='8000', no-wrap='false')
+		slide(ng-repeat='g in grid track by $index')
+			.row
+				.col-sm-6.col-md-2(ng-repeat='resident in g')
+					.panel.panel-danger.text-center
+						.panel-overlay
+						.panel-heading {{resident.firstName}} {{resident.lastName}}
+						.panel-image(ng-style="{'background-image': 'url(assets/images/{{resident.picture}})'}", ng-if="config.showImages && resident.picture")
+						.panel-body 
+							.row
+								.col-md-6
+										div
+											small Wing
+										strong.text-danger {{resident.wing}}
+								.col-md-6
+										div
+											small Room
+										strong.text-danger {{resident.room}}

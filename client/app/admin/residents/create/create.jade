@@ -1,0 +1,44 @@
+navbar
+.container
+	.row
+		.col-md-6.col-md-offset-3
+			h3 Create Resident
+			.alert.alert-success(ng-show="message") {{message}}
+			.alert.alert-danger(ng-show="hasError") Something went wrong!
+
+			form.form(name='form', ng-submit='create(form)', novalidate='', enctype="multipart/form-data")
+
+				.form-group(ng-class='{ "has-error": form.lastName.$invalid && submitted }')
+					label Last name
+					input.form-control(type="text", name="lastName", ng-model="resident.lastName", mongoose-error="")
+					p.help-block(ng-show='form.lastName.$error.mongoose')
+						|	{{errors.lastName}}
+
+
+				.form-group(ng-class='{ "has-error": form.firstName.$invalid && submitted }')
+					label First name
+					input.form-control(type="text", name="firstName", ng-model="resident.firstName", mongoose-error="")
+					p.help-block(ng-show='form.firstName.$error.mongoose')
+						|	{{errors.firstName}}
+
+
+				.form-group(ng-class='{ "has-error": form.wing.$invalid && submitted }')
+					label Wing
+					input.form-control(type="text", name="wing", ng-model="resident.wing", mongoose-error="")
+					p.help-block(ng-show='form.wing.$error.mongoose')
+						|	{{errors.wing}}
+
+
+				.form-group(ng-class='{ "has-error": form.room.$invalid && submitted }')
+					label Room
+					input.form-control(type="text", name="room", ng-model="resident.room", mongoose-error="")
+					p.help-block(ng-show='form.room.$error.mongoose')
+						|	{{errors.room}}
+
+				.form-group(ng-if="config.showImages")
+					label Picture
+					input(type="file", fileread="resident.image")
+
+
+
+				button.btn.btn-primary(type="submit") Insert Resident
